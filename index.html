@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="pt-0 flex flex-col justify-center items-center h-screen bg-gray-900">    
+    <nav class="bg-gray-800 w-full flex justify-between items-center p-4 fixed top-0 left-0 z-20">
+        <div class="text-white font-bold">Zolo</div>
+        <button id="hamburger-btn" class="text-white hover:text-gray-300 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <ul id="nav-links" class="hidden flex flex-col absolute bg-gray-600 w-full top-14 left-0 p-4">
+            <li class="mb-4">
+                <a id="tab-1-link" href="#tab1" class="text-white hover:text-gray-300">1. Paste Job Description</a>
+            </li>
+            <li class="mb-4">
+                <a id="tab-2-link" href="#tab2" class="text-white hover:text-gray-300">2. Paste Resume | Cover-Letter</a>
+            </li>
+            <li class="mb-4">
+                <a id="tab-3-link" href="#tab3" class="text-white hover:text-gray-300">3. Press Generate</a>
+            </li>
+            <li class="mb-4">
+                <a id="tab-4-link" href="#tab4" class="text-white hover:text-gray-300">4. Paste generated Resume | Cover-Letter</a>
+            </li>
+            <li class="mt-8">
+                <a id="reset-link" href="#" class="text-white hover:text-gray-300">5. Reset</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="dynamic-status" class="fixed top-16 left-0 w-full p-4 text-white text-center z-10">
+    </div>
+
+    <div class="mt-32 w-full p-4 overflow-y-auto flex-1">
+
+        <div id="tab-1" class="tab-content">
+            <div id="status-1" class="hidden"></div>
+            <textarea id="text-box-1" style="text-align: center;" class="rounded-xl p-1 mb-4 border border-gray-600 bg-gray-800 text-gray-200 w-full h-full focus:border-blue-500 focus:ring-blue-500" rows="10" placeholder="Please copy and paste job description here ..."></textarea>
+            <button id="submit-btn-1" class="mx-auto block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+        </div>
+
+        <div id="tab-2" class="tab-content hidden">
+            <div id="status-2" class="hidden"></div>
+            <textarea id="text-box-2" style="text-align: center;" class="rounded-xl p-1 mb-4 border border-gray-600 bg-gray-800 text-gray-200 w-full h-full focus:border-blue-500 focus:ring-blue-500" rows="10" placeholder="Please copy and paste your Resume or Cover-Letter here ..."></textarea>
+            <button id="submit-btn-2" class="mx-auto block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+        </div>
+
+        <div id="tab-3" class="tab-content hidden">
+            <div id="status-3" class="hidden"></div>
+            <textarea id="text-box-3" class="rounded-xl p-1 mb-4 border border-gray-600 bg-gray-800 text-gray-200 w-full h-full focus:border-blue-500 focus:ring-blue-500" rows="10" ></textarea>
+            <div class="flex justify-between gap-4">
+                <button id="back-btn-3" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex-1">Back</button>
+                <button id="generate-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex-1">Generate</button>
+                <button id="copy-btn" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex-1">Copy</button>
+            </div>
+            
+        </div>
+
+        <div id="tab-4" class="tab-content hidden">
+    <div id="status-4" class="hidden"></div>
+    <textarea id="text-box-4" class="rounded-xl p-1 mb-4 border border-gray-600 bg-gray-800 text-gray-200 w-full h-full focus:border-blue-500 focus:ring-blue-500" rows="10" ></textarea>
+    <div class="flex justify-between gap-4">
+        <button id="back-btn-4" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex-1">Back</button>
+        <button id="decode-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1">Decode</button>
+        <button id="copy-btn-4" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex-1">Copy</button>
+    </div>
+</div>
+
+    </div>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navLinks = document.getElementById('nav-links');
+        const dynamicStatus = document.getElementById('dynamic-status');
+
+        hamburgerBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+        });
+
+        const tabLinks = document.querySelectorAll('#nav-links li a');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        function loadTabContent() {
+            const hash = window.location.hash;
+            tabContents.forEach((tabContent, index) => {
+                if (`#tab${index + 1}` === hash) {
+                    tabContent.classList.remove('hidden');
+                } else {
+                    tabContent.classList.add('hidden');
+                }
+            });
+            navLinks.classList.add('hidden'); 
+        }
+
+        window.addEventListener('hashchange', loadTabContent);
+
+        window.location.hash = '#tab1';
+        loadTabContent();
+
+        const textBox1 = document.getElementById('text-box-1');
+        const submitBtn1 = document.getElementById('submit-btn-1');
+
+        submitBtn1.addEventListener('click', () => {
+            try {
+                const submittedText = textBox1.value;
+                console.log(`User submitted: ${submittedText}`);
+                localStorage.setItem(`savedText1`, submittedText);
+                dynamicStatus.textContent = `Text saved successfully!`;
+                setTimeout(() => {
+                    dynamicStatus.textContent = '';
+                }, 3000);
+                submitBtn1.disabled = true;
+                submitBtn1.classList.add('opacity-50', 'cursor-not-allowed');
+                setTimeout(() => {
+                    document.getElementById(`tab-1`).classList.add('hidden');
+                    document.getElementById(`tab-2`).classList.remove('hidden');
+                    window.location.hash = `#tab2`;
+                }, 2000);
+            } catch (error) {
+                console.error(error);
+                dynamicStatus.textContent = `Error saving text.`;
+                setTimeout(() => {
+                    dynamicStatus.textContent = '';
+                }, 2000);
+            }
+        });
+
+        const textBox2 = document.getElementById('text-box-2');
+        const submitBtn2 = document.getElementById('submit-btn-2');
+
+        submitBtn2.addEventListener('click', () => {
+            try {
+                const submittedText = textBox2.value;
+                console.log(`User submitted: ${submittedText}`);
+                localStorage.setItem(`savedText2`, submittedText);
+                dynamicStatus.textContent = `Text saved successfully!`;
+                setTimeout(() => {
+                    dynamicStatus.textContent = '';
+                }, 3000);
+                submitBtn2.disabled = true;
+                submitBtn2.classList.add('opacity-50', 'cursor-not-allowed');
+                setTimeout(() => {
+                    document.getElementById(`tab-2`).classList.add('hidden');
+                    document.getElementById(`tab-3`).classList.remove('hidden');
+                    window.location.hash = `#tab3`;
+                }, 2000);
+            } catch (error) {
+                console.error(error);
+                dynamicStatus.textContent = `Error saving text.`;
+                setTimeout(() => {
+                    dynamicStatus.textContent = '';
+                }, 2000);
+            }
+        });
+
+        document.getElementById('reset-link').addEventListener('click', (e) => {
+            e.preventDefault();
+	   console.clear();
+            for (let i = 1; i <= 4; i++) {
+                localStorage.removeItem(`savedText${i}`);
+                const textBox = document.getElementById(`text-box-${i}`);
+                if(textBox) textBox.value = '';
+                const submitBtn = document.getElementById(`submit-btn-${i}`);
+                if(submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+                document.getElementById(`tab-${i}`).classList.add('hidden');
+            }
+            window.location.hash = '#tab1';
+            document.getElementById('tab-1').classList.remove('hidden');
+            navLinks.classList.add('hidden');
+            dynamicStatus.textContent = 'Reseting all saved submissions!';
+            setTimeout(() => {
+                dynamicStatus.textContent = '';
+            }, 3000);
+            const generateBtn = document.getElementById('generate-btn');
+            generateBtn.disabled = false;
+            generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            return false;
+        });
+
+        document.getElementById('back-btn-3').addEventListener('click', () => {
+            window.location.hash = '#tab2';
+            document.getElementById('tab-2').classList.remove('hidden');
+            document.getElementById('tab-3').classList.add('hidden');
+        });
+
+        document.getElementById('generate-btn').addEventListener('click', () => {
+            const savedText1 = localStorage.getItem('savedText1');
+            const savedText2 = localStorage.getItem('savedText2');
+            if (savedText1 && savedText2) {
+                const additionalText = `Analyse the first piece of information, and use this to customise the second piece of information, make it ATS friendly and appealing for hiring managers, don't print anything else but only what i can paste, for formatting purposes use HTML tags, include bullet points and bold headings`;
+                document.getElementById('text-box-3').value = 'Info1>>\n\n' + savedText1 + '\n\nInfo2>>' + savedText2 + '\n\n' + additionalText;
+                
+                // Disable the button
+                const generateBtn = document.getElementById('generate-btn');
+                generateBtn.disabled = true;
+                generateBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                dynamicStatus.textContent = 'No saved text found!';
+                setTimeout(() => {
+                    dynamicStatus.textContent = '';
+                }, 2000);
+            }
+        });
+
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            const textArea = document.getElementById('text-box-3');
+            navigator.clipboard.writeText(textArea.value).then(() => {
+                dynamicStatus.textContent = 'Text copied to clipboard!';
+                setTimeout(() => {
+                    dynamicStatus.textContent = '';
+                }, 2000);
+                document.getElementById('text-box-4').value = '';
+                window.location.hash = '#tab4';
+                document.getElementById('tab-4').classList.remove('hidden');
+                document.getElementById('tab-3').classList.add('hidden');
+            }, () => {
+                dynamicStatus.textContent = 'Failed to copy text!';
+                setTimeout(() => {
+                    dynamicStatus.textContent = '';
+                }, 2000);
+            });
+        });
+
+	document.getElementById('back-btn-4').addEventListener('click', () => {
+    window.location.hash = '#tab3';
+    document.getElementById('tab-3').classList.remove('hidden');
+    document.getElementById('tab-4').classList.add('hidden');
+});
+
+
+document.getElementById('decode-btn').addEventListener('click', () => {
+    const textArea = document.getElementById('text-box-4');
+    const decodedText = new DOMParser().parseFromString(textArea.value, 'text/html').documentElement.textContent;
+    textArea.value = decodedText;
+});
+
+document.getElementById('copy-btn-4').addEventListener('click', () => {
+    const textArea = document.getElementById('text-box-4');
+    navigator.clipboard.writeText(textArea.value).then(() => {
+        dynamicStatus.textContent = 'Text copied to clipboard!';
+        setTimeout(() => {
+            dynamicStatus.textContent = '';
+        }, 2000);
+    }, () => {
+        dynamicStatus.textContent = 'Failed to copy text!';
+        setTimeout(() => {
+            dynamicStatus.textContent = '';
+        }, 2000);
+    });
+});
+
+    </script>
+</body>
+</html>
