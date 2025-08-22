@@ -15,7 +15,7 @@ This project is a research project that plays with the idea of a piggy back AI m
 
 ## Installation and Setup
 
-1. Clone the repository: `https://github.com/Andy-K-Taua/Static-Website`
+1. Clone the repository: `https://andy-k-taua.github.io/Static-Website/`
 2. Start the project in terminal: `open Static.html`
 
 ## Contributing
