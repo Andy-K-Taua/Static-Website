@@ -11,7 +11,7 @@ This project is a research project that plays with the idea of a piggy back AI m
 ## Future Improvements
 
 1. I would like to make 3 buttons in total
-2. I would try to reduce the amount of clicks required to final output
+2. I would like to reduce the amount of clicks down to 5, then 3 in total
 
 ## Installation and Setup
 
