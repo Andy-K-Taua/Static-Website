@@ -428,7 +428,7 @@ document.getElementById('extract-btn-5').addEventListener('click', async () => {
     const textToUse = copiedText || pastedText;
     const formattedText = textToUse
 			   .replace(/<h2>/g, '<hr><h2>')
-			//.replace(/<h1>(.*?)<\/h1>/g, '<h1 style="font-weight: lighter; font-size: 20px; text-align: center; font-family: "Century Gothic", sans-serif;">$1</h1>');
+			//.replace(/<h1>(.*?)<\/h1>/g, '<h1 style="font-weight: lighter; font-size: 20px; text-align: center; font-family: 'Open Sans';">$1</h1>');
 
     const template = 
 `<!DOCTYPE html>
@@ -436,21 +436,20 @@ document.getElementById('extract-btn-5').addEventListener('click', async () => {
       <head>
         <style>
           body {
-            font-family: 'Century Gothic', sans-serif;
+            font-family: 'Open Sans';
 	   font-size: 11px;
           }
           h1 {
-          font-weight: lighter;
-	  font-colour: green;
-	  font-size: 30px;
-	  text-align: center;
+            font-weight: lighter;
+	   font-size: 30px;
+	   text-align: center;
           }
 	 h2 {
-	   font-size: 16px;
+	   font-size: 14px;
 	 }
 	 h3 {
-            font-size: 11px;
-	    text-align: center;
+            font-size: 10px;
+	   text-align: center;
 	 }
         </style>
       </head>
@@ -498,10 +497,10 @@ document.getElementById('submit-btn-5').addEventListener('click', () => {
     const iframeH1 = iframe.contentDocument.querySelector('h1');
     if (iframeH1) {
       const styles = iframe.contentDocument.defaultView.getComputedStyle(iframeH1);
-//      console.log(styles.fontFamily);
-//      console.log(styles.fontSize);
-//      console.log(styles.fontWeight);
-//      console.log(iframeH1.nodeName);
+      console.log(styles.fontFamily);
+      console.log(styles.fontSize);
+      console.log(styles.fontWeight);
+      console.log(iframeH1.nodeName);
 
     }
   
