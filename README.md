@@ -6,7 +6,7 @@ This project is a research project that plays with the idea of a piggy back AI m
 
 * Feature 1 - Super lightweight frontend, no loading
 * Feature 2 - Costs nothing
-* Feature 3 - Very easily implemented
+* Feature 3 - Piggy backs 'any' AI LLM
 
 ## Future Improvements
 
