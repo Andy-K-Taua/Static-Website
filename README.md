@@ -1,6 +1,6 @@
 # Zolo
 
-This project is a research project that plays with the idea of a piggy back AI method, giving the end user permissions over windows. This outputs AI generated outcomes. 
+This project is a research project that plays with the idea of a piggy back AI method, giving the end user permissions over numerous windows without cors permissions. This outputs AI piggy back generated outcomes. 
 
 ## Features
 
