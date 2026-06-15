@@ -31,3 +31,6 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ## Acknowledgments
 
 * Thanks to any contributor for their help.
+
+## Live Demo
+[View Project Here](https://andy-k-taua.github.io/Static-Website/)
